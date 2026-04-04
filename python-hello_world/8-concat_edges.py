@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-word = "Holberton School"
+word = "object-oriented programming with Python"
 number = 98
 language = "Python"
-print(word[8:] + "-oriented programming with " + language)
+print(word)
