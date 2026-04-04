@@ -2,4 +2,4 @@
 word = "object-oriented programming with Python"
 number = 98
 language = "Python"
-print(word)
+print(word[:19] + word[19:])
