@@ -47,10 +47,9 @@ def login():
         return jsonify({"error": "Invalid credentials"}), 401
     if not check_password_hash(users[username]['password'], password):
         return jsonify({"error": "Invalid credentials"}), 401
-    token = create_access_token(identity={
-        "username": username,
-        "role": users[username]['role']
-    })
+    token = create_access_token(
+        identity={"username": username, "role": users[username]['role']}
+    )
     return jsonify({"access_token": token})
 
 
@@ -67,4 +66,11 @@ def admin_only():
     """Admin only route"""
     current_user = get_jwt_identity()
     if current_user['role'] != 'admin':
-        return jsonify({"error": "Admin
+        return jsonify({"error": "Admin access required"}), 403
+    return "Admin Access: Granted"
+
+
+@jwt.unauthorized_loader
+def handle_unauthorized_error(err):
+    """Handles missing token"""
+    return jsonify({"error": "Missing or i
