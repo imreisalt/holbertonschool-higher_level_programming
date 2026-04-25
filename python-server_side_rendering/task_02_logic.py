@@ -15,9 +15,13 @@ def home():
 @app.route('/items')
 def items():
     """Renders the items page with data from items.json"""
-    with open('items.json', 'r') as f:
-        data = json.load(f)
-    return render_template('items.html', items=data['items'])
+    try:
+        with open('items.json', 'r') as f:
+            data = json.load(f)
+        items_list = data.get('items', [])
+    except Exception:
+        items_list = []
+    return render_template('items.html', items=items_list)
 
 
 if __name__ == '__main__':
